@@ -3,3 +3,9 @@
 struct Player;
 struct Net;
 struct Ball;
+
+namespace nmUtils
+{
+	bool IsBetween(float val, float rangeB, float rangeE);
+	bool InOnNet(Ball& ball, Net& net);
+}

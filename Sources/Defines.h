@@ -1,6 +1,6 @@
 #pragma once
 
-const int WINDOW_WIDTH = 933;	
+const int WINDOW_WIDTH = 1000;	
 const int WINDOW_HEIGHT = 600;	
 const float GROUND_Y = 500;	
 

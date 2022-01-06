@@ -101,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Defines.h" />
-    <ClInclude Include="Sources\Main.h" />
     <ClInclude Include="Sources\Objects.h" />
     <ClInclude Include="Sources\Utils.h" />
   </ItemGroup>
