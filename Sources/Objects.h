@@ -22,11 +22,11 @@ struct Net
 
 struct Ball
 {
-	float BallStartY() { return y + 40; }
+	float BallStartY() { return y + 70;}
 
-	float BallEndY() { return y + 83; }
+	float BallEndY() { return y + 100; }
 
-	float BallX() { return x + 93; }
+	float BallX() { return x + 50; }
 
 	float x, y;
 };

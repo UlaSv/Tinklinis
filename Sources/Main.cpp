@@ -34,17 +34,17 @@ void UpdatePositions(Player& player, Player& player2, Net& net, Ball& ball, floa
 			player2.y = GROUND_Y;
 	}
 
-	if (player.x >= net.x - 95)
-		player.x = net.x - 95;
+	if (player.x >= net.x - 30)
+		player.x = net.x -30;
 
-	if (player.x < 20)
-		player.x = 20;
+	if (player.x < 70)
+		player.x = 70;
 
-	if (player2.x <= net.x + 10)
-		player2.x = net.x + 10;
+	if (player2.x <= net.x + 60)
+		player2.x = net.x + 60;
 
-	if (player2.x >= WINDOW_WIDTH - 115)
-		player2.x = WINDOW_WIDTH - 115;
+	if (player2.x >= WINDOW_WIDTH - 65)
+		player2.x = WINDOW_WIDTH - 65;
 
 	if (nmUtils::InOnNet(ball, net))
 		stepX = -7;
@@ -74,7 +74,7 @@ int main()
 	text.setOutlineColor(Color::Black);
 	text.setPosition(WINDOW_WIDTH / 3.5f, 5.f);
 
-sf:RectangleShape line;
+    sf:RectangleShape line;
 	line.setSize(sf::Vector2f(950, 3));
 	line.setPosition(20, 50.f);
 
@@ -108,8 +108,8 @@ sf:RectangleShape line;
 	player2.y = GROUND_Y;
 
 	Net net;
-	net.x = WINDOW_WIDTH / 2 - 10;
-	net.y = GROUND_Y - 200;
+	net.x = WINDOW_WIDTH / 2 - 20;
+	net.y = GROUND_Y - 220;
 
 	Ball ball;
 	ball.x = WINDOW_WIDTH / 6;
@@ -132,19 +132,19 @@ sf:RectangleShape line;
 		ball.x += stepX;
 		ball.y += stepY;
 
-		if (sprBall.getPosition().x > WINDOW_WIDTH - BALL_WIDTH - 40)
+		if (sprBall.getPosition().x > WINDOW_WIDTH - BALL_WIDTH + 20)
 		{
 			stepX = -7;
 		}
-		if (sprBall.getPosition().y > WINDOW_HEIGHT - BALL_HEIGHT - 15)
+		if (sprBall.getPosition().y > WINDOW_HEIGHT - BALL_HEIGHT)
 		{
 			stepY = -7;
 		}
-		if (sprBall.getPosition().x < 20)
+		if (sprBall.getPosition().x < 80)
 		{
 			stepX = 7;
 		}
-		if (sprBall.getPosition().y < 55)
+		if (sprBall.getPosition().y < 80)
 		{
 			stepY = 7;
 		}
@@ -185,10 +185,13 @@ sf:RectangleShape line;
 		app.draw(sprBackground);
 
 		sprPlayer.setPosition(player.x, player.y);
+		sprPlayer.setOrigin(53, 25);
 		app.draw(sprPlayer);
 		sprPlayer2.setPosition(player2.x, player2.y);
+		sprPlayer2.setOrigin(53, 25);
 		app.draw(sprPlayer2);
 		sprBall.setPosition(ball.x, ball.y);
+		sprBall.setOrigin(53, 25);
 		app.draw(sprBall);
 		sprNet.setPosition(net.x, net.y);
 		app.draw(sprNet);

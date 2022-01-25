@@ -2,7 +2,7 @@
 
 const int WINDOW_WIDTH = 1000;	
 const int WINDOW_HEIGHT = 600;	
-const float GROUND_Y = 500;	
+const float GROUND_Y = 525;	
 
 const float PLAYER_WIDTH = 91;	
 const float PLAYER_HEIGHT= 93;
