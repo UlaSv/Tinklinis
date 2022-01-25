@@ -46,7 +46,11 @@ void UpdatePositions(Player& player, Player& player2, Net& net, Ball& ball, floa
 	if (player2.x >= WINDOW_WIDTH - 65)
 		player2.x = WINDOW_WIDTH - 65;
 
+
 	if (nmUtils::InOnNet(ball, net))
+		stepX = 7;
+
+	if (nmUtils::InOnNet2(ball, net))
 		stepX = -7;
 }
 

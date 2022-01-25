@@ -16,3 +16,12 @@ bool nmUtils::InOnNet(Ball& ball, Net& net)
 
 	return betweenX && betweenY;
 }
+bool nmUtils::InOnNet2(Ball& ball, Net& net)
+{
+	const bool betweenY = IsBetween(ball.BallStartY(), net.StartY(), ball.BallEndY()) ||
+		IsBetween(ball.BallEndY(), net.StartY(), net.EndY());
+
+	const bool betweenX = IsBetween(ball.BallX2(), net.TopX(), net.BottomX());
+
+	return betweenX && betweenY;
+}
