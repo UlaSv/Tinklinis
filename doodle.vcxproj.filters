@@ -7,6 +7,9 @@
     <ClCompile Include="Sources\Utils.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\GameObjects.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\background.png">
@@ -38,6 +41,9 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Utils.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\GameObjects.h">
       <Filter>Sources</Filter>
     </ClInclude>
   </ItemGroup>

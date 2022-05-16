@@ -1,213 +1,146 @@
 #include <SFML/Graphics.hpp>
-#include <format>
 #include <cmath>
 
 #include "Objects.h"
 #include "Utils.h"
+#include "GameObjects.h"
 
-using namespace sf;
 using namespace std;
 
-void UpdatePositions(Player& player, Player& player2, Net& net, Ball& ball, float& stepX)
+void UpdatePositions(Player1& player1, Player2& player2, Net& net, Ball& ball, int& stepX, int& stepY)
 {
-	const float dx = 5.0f;
-	const float dy = 10.0f;
-
+	const int dx = 5;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		player.x -= dx;
+		player1.XCoordinate(-dx);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		player.x += dx;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		player.y -= dy;
-		if (player.y <= 450)
-			player.y = GROUND_Y;
-	}
+		player1.XCoordinate(dx);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		player2.x -= dx;
+		player2.XCoordinate(-dx);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		player2.x += dx;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		player2.y -= dy;
-		if (player2.y <= 450)
-			player2.y = GROUND_Y;
-	}
+		player2.XCoordinate(dx);
 
-	if (player.x >= net.x - 30)
-		player.x = net.x -30;
+	const int stop = 10;
+	if (player1.GetX() >= net.GetX() - 30)
+		player1.XCoordinate(-stop);
 
-	if (player.x < 70)
-		player.x = 70;
+	if (player1.GetX() < 70)
+		player1.XCoordinate(stop);
 
-	if (player2.x <= net.x + 60)
-		player2.x = net.x + 60;
+	if (player2.GetX() <= net.GetX() + 60)
+		player2.XCoordinate(stop);
 
-	if (player2.x >= WINDOW_WIDTH - 65)
-		player2.x = WINDOW_WIDTH - 65;
+	if (player2.GetX() >= WINDOW_WIDTH - 65)
+		player2.XCoordinate(-stop);
 
+	ball.XCoordinate(stepX);
+	ball.YCoordinate(stepY);
 
 	if (nmUtils::InOnNet(ball, net))
 		stepX = 7;
-
 	if (nmUtils::InOnNet2(ball, net))
 		stepX = -7;
+
+	if (ball.GetX() > WINDOW_WIDTH - BALL_WIDTH + 20)
+		stepX = -7;
+	if (ball.GetY() > WINDOW_HEIGHT - BALL_HEIGHT)
+		stepY = -7;
+	if (ball.GetX() < 80)
+		stepX = 7;
+	if (ball.GetY() < 80)
+		stepY = 7;
+}
+void Collision(Player1 player1, Player2 player2, Ball ball, int& stepX, int& stepY)
+{
+	int xd, yd, distance, ballRadius, playerRadius;
+	int xd_2, yd_2, distance2, player2Radius;
+	const int x1 = ball.GetX();
+	const int y1 = ball.GetY();
+	const int x2 = player1.GetX();
+	const int y2 = player1.GetY();
+	const int x2_2 = player2.GetX();
+	const int y2_2 = player2.GetY();
+	ballRadius = ball.GetRadius();
+	playerRadius = player1.GetRadius();
+	player2Radius = player2.GetRadius();
+
+	xd = x2 - x1;
+	yd = y2 - y1;
+
+	xd_2 = x2_2 - x1;
+	yd_2 = y2_2 - y1;
+
+	distance = sqrt((xd * xd) + (yd * yd));
+	distance2 = sqrt((xd_2 * xd_2) + (yd_2 * yd_2));
+
+	if (distance < (playerRadius + ballRadius))
+	{
+		stepX = rand() % 3 + 1 * 7;
+		stepY = rand() % 3 - 1 * 7;
+	}
+
+	if (distance2 < (player2Radius + ballRadius))
+	{
+		stepX = rand() % 3 + 1 * -7;
+		stepY = rand() % 3 - 1 * 7;
+	}
+}
+void Score(Ball ball, Net net, int& score1, int& score2) 
+{
+	if (ball.GetY() > WINDOW_HEIGHT - 100 && ball.GetX() < net.GetX())
+		score2++;
+	if (ball.GetY() > WINDOW_HEIGHT - 100 && ball.GetX() > net.GetX())
+		score1++;
 }
 
 int main()
 {
-	RenderWindow app(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tenisas");
+	sf::RenderWindow app(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tenisas");
 	app.setFramerateLimit(60);
 
-	Texture tBackground, tPlayer1, tNet, tPlayer2, tBall;
+	sf::Texture tBackground;
 	tBackground.loadFromFile("Resources/background.png");
-	tPlayer1.loadFromFile("Resources/player.png");
-	tPlayer2.loadFromFile("Resources/player2.png");
-	tNet.loadFromFile("Resources/Net.png");
-	tBall.loadFromFile("Resources/ball.png");
+	sf::Sprite sprBackground(tBackground);
 
-	sf::Font font;
-	font.loadFromFile("Resources/arcadeStyle.ttf");
+	Text tekstas;
+	Contour remas;
+	Player1 player1(WINDOW_WIDTH / 6, GROUND_Y);
+	Player2 player2(WINDOW_WIDTH / 6 + WINDOW_WIDTH / 2, GROUND_Y);
+	Net net(WINDOW_WIDTH / 2 - 20, GROUND_Y - 220);
+	Ball ball(WINDOW_WIDTH / 6, GROUND_Y - 100);
 
-	sf::Text text;
-	text.setFont(font);
-	text.setString("Arcade volleyball 2022");
-	text.setCharacterSize(40);
-	text.setFillColor(Color::White);
-	text.setOutlineThickness(1);
-	text.setOutlineColor(Color::Black);
-	text.setPosition(WINDOW_WIDTH / 3.5f, 5.f);
+	GameObject* pPlayer1 = dynamic_cast<Player1*>(&player1);
+	GameObject* pPlayer2 = dynamic_cast<Player2*>(&player2);
+	GameObject* pNet = dynamic_cast<Net*>(&net);
+	GameObject* pBall = dynamic_cast<Ball*>(&ball);
 
-    sf:RectangleShape line;
-	line.setSize(sf::Vector2f(950, 3));
-	line.setPosition(20, 50.f);
-
-	RectangleShape line2;
-	line2.setSize(sf::Vector2f(950, 3));
-	line2.setPosition(20, WINDOW_HEIGHT - 10);
-
-	RectangleShape line3;
-	line3.setSize(sf::Vector2f(543, 3));
-	line3.setPosition(20, 50);
-	line3.setRotation(90.f);
-
-	RectangleShape line4;
-	line4.setSize(sf::Vector2f(543, 3));
-	line4.setPosition(WINDOW_WIDTH - 28, 50);
-	line4.setRotation(90.f);
-
-
-	Sprite sprBackground(tBackground);
-	Sprite sprPlayer(tPlayer1);
-	Sprite sprPlayer2(tPlayer2);
-	Sprite sprNet(tNet);
-	Sprite sprBall(tBall);
-
-	Player player;
-	player.x = WINDOW_WIDTH / 6;
-	player.y = GROUND_Y;
-
-	Player player2;
-	player2.x = WINDOW_WIDTH / 6 + WINDOW_WIDTH / 2;
-	player2.y = GROUND_Y;
-
-	Net net;
-	net.x = WINDOW_WIDTH / 2 - 20;
-	net.y = GROUND_Y - 220;
-
-	Ball ball;
-	ball.x = WINDOW_WIDTH / 6;
-	ball.y = GROUND_Y - 100;
-
-	float stepX = 7.0f;
-	float stepY = 7.0f;
+	int score1 = 0, score2=0;
+	int stepX = 7;
+	int stepY = 7;
 
 	while (app.isOpen())
 	{
-		Event e;
+		sf::Event e;
 		while (app.pollEvent(e))
 		{
-			if (e.type == Event::Closed)
+			if (e.type == sf::Event::Closed)
 				app.close();
 		}
 
-		UpdatePositions(player, player2, net, ball, stepX);
-
-		ball.x += stepX;
-		ball.y += stepY;
-
-		if (sprBall.getPosition().x > WINDOW_WIDTH - BALL_WIDTH + 20)
-		{
-			stepX = -7;
-		}
-		if (sprBall.getPosition().y > WINDOW_HEIGHT - BALL_HEIGHT)
-		{
-			stepY = -7;
-		}
-		if (sprBall.getPosition().x < 80)
-		{
-			stepX = 7;
-		}
-		if (sprBall.getPosition().y < 80)
-		{
-			stepY = 7;
-		}
-
-		float x1, y1, x2, y2, xd, yd, distance, ballRadius, playerRadius;
-		float x2_2, y2_2, xd_2, yd_2, distance2, player2Radius;
-		x1 = sprBall.getPosition().x;
-		y1 = sprBall.getPosition().y;
-		x2 = sprPlayer.getPosition().x;
-		y2 = sprPlayer.getPosition().y;
-		x2_2 = sprPlayer2.getPosition().x;
-		y2_2 = sprPlayer2.getPosition().y;
-		ballRadius = 52;
-		playerRadius = 53;
-		player2Radius = 53;
-
-		xd = x2 - x1;
-		yd = y2 - y1;
-
-		xd_2 = x2_2 - x1;
-		yd_2 = y2_2 - y1;
-
-		distance = sqrt((xd * xd) + (yd * yd));
-		distance2 = sqrt((xd_2 * xd_2) + (yd_2 * yd_2));
-
-		if (distance < (playerRadius + ballRadius))
-		{
-			stepX = rand() % 3 + 1 * 7;
-			stepY = rand() % 3 - 1 * 7;
-		}
-
-		if (distance2 < (player2Radius + ballRadius))
-		{
-			stepX = rand() % 3 + 1 * -7;
-			stepY = rand() % 3 - 1 * 7;
-		}
-
+		UpdatePositions(player1, player2, net, ball, stepX, stepY);
+		Collision(player1, player2, ball, stepX, stepY);
+		Score(ball, net, score1, score2);
+		
 		app.draw(sprBackground);
-
-		sprPlayer.setPosition(player.x, player.y);
-		sprPlayer.setOrigin(53, 25);
-		app.draw(sprPlayer);
-		sprPlayer2.setPosition(player2.x, player2.y);
-		sprPlayer2.setOrigin(53, 25);
-		app.draw(sprPlayer2);
-		sprBall.setPosition(ball.x, ball.y);
-		sprBall.setOrigin(53, 25);
-		app.draw(sprBall);
-		sprNet.setPosition(net.x, net.y);
-		app.draw(sprNet);
-
-		app.draw(text);
-		app.draw(line);
-		app.draw(line2);
-		app.draw(line3);
-		app.draw(line4);
+		
+		tekstas.PrintText(app, score1, score2);
+		remas.DrawContour(app);
+		
+		pPlayer1->DrawObject(app);
+		pPlayer2->DrawObject(app);
+		pNet->DrawObject(app);
+		pBall->DrawObject(app);
 
 		app.display();
 	}
-
 	return 0;
 }

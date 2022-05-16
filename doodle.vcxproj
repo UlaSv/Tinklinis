@@ -15,6 +15,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>doodle</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>tinklinis</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -91,6 +92,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Sources/Main.cpp" />
+    <ClCompile Include="Sources\GameObjects.cpp" />
     <ClCompile Include="Sources\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Defines.h" />
+    <ClInclude Include="Sources\GameObjects.h" />
     <ClInclude Include="Sources\Objects.h" />
     <ClInclude Include="Sources\Utils.h" />
   </ItemGroup>

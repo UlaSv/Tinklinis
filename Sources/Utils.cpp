@@ -1,13 +1,12 @@
-
 #include "Utils.h"
-#include "Objects.h"
+
 
 bool nmUtils::IsBetween(float val, float rangeB, float rangeE)
 {
 	return val > rangeB && val < rangeE;
 }
 
-bool nmUtils::InOnNet(Ball& ball, Net& net)
+bool nmUtils::InOnNet(Ball ball, Net net)
 {
 	const bool betweenY = IsBetween(ball.BallStartY(), net.StartY(), ball.BallEndY()) ||
 		IsBetween(ball.BallEndY(), net.StartY(), net.EndY());
@@ -16,7 +15,7 @@ bool nmUtils::InOnNet(Ball& ball, Net& net)
 
 	return betweenX && betweenY;
 }
-bool nmUtils::InOnNet2(Ball& ball, Net& net)
+bool nmUtils::InOnNet2(Ball ball, Net net)
 {
 	const bool betweenY = IsBetween(ball.BallStartY(), net.StartY(), ball.BallEndY()) ||
 		IsBetween(ball.BallEndY(), net.StartY(), net.EndY());
