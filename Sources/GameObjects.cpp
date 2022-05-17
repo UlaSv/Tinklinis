@@ -7,8 +7,8 @@ GameObject::GameObject(int x, int y)
 	_x = x; 
 	_y = y; 
 }
-int GameObject::GetX() { return _x; }
-int GameObject::GetY() { return _y; }
+int GameObject::GetX() const { return _x; }
+int GameObject::GetY() const { return _y; }
 void GameObject::XCoordinate(int step) { _x += step; }
 void GameObject::YCoordinate(int step) { _y += step; }
 void GameObject::DrawObject(sf::RenderWindow& appsas){};
@@ -21,7 +21,8 @@ Player1::Player1(int x, int y) : GameObject(x, y)
 	_radius = 52;
 	_sprPlayer1.setOrigin(_radius, 25);
 }
-int Player1::GetRadius() { return _radius; }
+int Player1::operator--() const { return _radius; }
+int Player1::operator - (int atstumas) const { return _x - atstumas; }
 void Player1::DrawObject(sf::RenderWindow& appsas) 
 {
 	_sprPlayer1.setPosition(_x, _y);
@@ -35,8 +36,9 @@ Player2::Player2(int x, int y) : GameObject(x, y)
 	_radius = 52;
 	_sprPlayer2.setOrigin(_radius, 25);
 }
-int Player2::GetRadius() { return _radius; }
-void Player2::DrawObject(sf::RenderWindow& appsas) 
+int Player2::operator--() const { return _radius; }
+int Player2::operator - (int atstumas) const { return _x - atstumas; }
+void Player2::DrawObject(sf::RenderWindow& appsas)
 { 
 	_sprPlayer2.setPosition(_x, _y);
 	appsas.draw(_sprPlayer2); 
@@ -48,13 +50,12 @@ Ball::Ball(int x, int y) : GameObject(x, y)
 	_sprBall.setTexture(_tBall);
 	_radius = 52;
 	_sprBall.setOrigin(_radius, 25);
-	
 }
-int Ball::GetRadius() { return _radius; }
-float  Ball::BallStartY() { return _y - 70; }
-float Ball::BallEndY() { return _y + 70; }
-float Ball::BallX() { return _x - 50; }
-float Ball::BallX2() { return _x + 50; }
+int Ball::GetRadius() const { return _radius; }
+float Ball::BallStartY() const { return _y - 70; }
+float Ball::BallEndY() const { return _y + 70; }
+float Ball::BallX() const { return _x - 50; }
+float Ball::BallX2() const { return _x + 50; }
 void Ball::DrawObject(sf::RenderWindow& appsas) 
 {  
 	_sprBall.setPosition(_x, _y);
@@ -68,10 +69,10 @@ Net::Net(int x, int y):  GameObject(x, y)
 	_sprNet.setPosition(_x,_y);
 }
 
-float Net::StartY() { return _y; }
-float Net::EndY() { return _y + NET_HEIGHT; }
-float Net::TopX() { return _x; }
-float Net::BottomX() { return _x + NET_WIDTH; }
+float Net::StartY() const { return _y; }
+float Net::EndY() const { return _y + NET_HEIGHT; }
+float Net::TopX() const { return _x; }
+float Net::BottomX() const { return _x + NET_WIDTH; }
 void Net::DrawObject(sf::RenderWindow& appsas) { appsas.draw(_sprNet); }
 
 Text::Text()
@@ -87,14 +88,14 @@ Text::Text()
 
 	_score1.setFont(_font);
 	_score1.setCharacterSize(40);
-	_score1.setFillColor(sf::Color::White);
+	_score1.setFillColor(sf::Color::Cyan);
 	_score1.setOutlineThickness(1);
 	_score1.setOutlineColor(sf::Color::Black);
 	_score1.setPosition(WINDOW_WIDTH / 5, 5.f);
 
 	_score2.setFont(_font);
 	_score2.setCharacterSize(40);
-	_score2.setFillColor(sf::Color::White);
+	_score2.setFillColor(sf::Color::Magenta);
 	_score2.setOutlineThickness(1);
 	_score2.setOutlineColor(sf::Color::Black);
 	_score2.setPosition(WINDOW_WIDTH - 200, 5.f);
@@ -109,24 +110,26 @@ void Text::PrintText(sf::RenderWindow& appsas, int& taskai1, int& taskai2)
 }
 Contour::Contour()
 {
-	_line1.setSize(sf::Vector2f(950, 3));
-	_line1.setPosition(20, 50.f);
+	_linija.setSize(sf::Vector2f(950, 3));
+	_linija.setPosition(20, 50.f);
+	_line.push_back(_linija);
 
-	_line2.setSize(sf::Vector2f(950, 3));
-	_line2.setPosition(20, WINDOW_HEIGHT - 10);
+	_linija.setSize(sf::Vector2f(950, 3));
+	_linija.setPosition(20, WINDOW_HEIGHT - 10);
+	_line.push_back(_linija);
 
-	_line3.setSize(sf::Vector2f(543, 3));
-	_line3.setPosition(20, 50);
-	_line3.setRotation(90.f);
+	_linija.setSize(sf::Vector2f(543, 3));
+	_linija.setPosition(20, 50);
+	_linija.setRotation(90.f);
+	_line.push_back(_linija);
 
-	_line4.setSize(sf::Vector2f(543, 3));
-	_line4.setPosition(WINDOW_WIDTH - 28, 50);
-	_line4.setRotation(90.f);
+	_linija.setSize(sf::Vector2f(543, 3));
+	_linija.setPosition(WINDOW_WIDTH - 28, 50);
+	_linija.setRotation(90.f);
+	_line.push_back(_linija);
 }
 void Contour::DrawContour(sf::RenderWindow& appsas)
 {
-	appsas.draw(_line1);
-	appsas.draw(_line2);
-	appsas.draw(_line3);
-	appsas.draw(_line4);
+	for (auto &vec: _line)
+		appsas.draw(vec);
 }

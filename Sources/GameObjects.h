@@ -3,6 +3,7 @@
 #define GameObje_H
 
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "Defines.h"
 
 class GameObject
@@ -14,8 +15,8 @@ protected:
 public:
 	GameObject(int x, int y);
 	virtual ~GameObject(){};
-	int GetX();
-	int GetY();
+	int GetX() const;
+	int GetY() const;
 	void XCoordinate(int step);
 	void YCoordinate(int step);
 	virtual void DrawObject(sf::RenderWindow& appsas);
@@ -31,7 +32,8 @@ private:
 public:
 	Player1(int x, int y);
 	virtual ~Player1(){};
-	int GetRadius();
+	int operator -- () const;
+	int operator - (int atstumas) const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
 
@@ -45,15 +47,14 @@ private:
 public:
 	Player2(int x, int y);
 	virtual ~Player2() {};
-	int GetRadius();
+	int operator --() const;
+	int operator - (int atstumas) const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
 
 class Ball : public GameObject
 {
 private:
-	float _stepX = 7.0f;
-	float _stepY = 7.0f;
 	int _radius;
 	sf::Texture _tBall;
 	sf::Sprite _sprBall;
@@ -61,11 +62,11 @@ private:
 public:
 	Ball(int x, int y);
 	virtual ~Ball() {};
-	float BallStartY();
-	float BallEndY();
-	float BallX();
-	float BallX2();
-	int GetRadius();
+	float BallStartY() const;
+	float BallEndY() const;
+	float BallX()const;
+	float BallX2() const;
+	int GetRadius() const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
 
@@ -77,10 +78,10 @@ private:
 public:
 	Net(int x, int y);
 	virtual ~Net(){};
-	float StartY();
-	float EndY();
-	float TopX();
-	float BottomX();
+	float StartY() const;
+	float EndY() const;
+	float TopX() const;
+	float BottomX()const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
 
@@ -98,7 +99,8 @@ public:
 class Contour
 {
 private:
-	sf::RectangleShape _line1, _line2, _line3, _line4;
+	std::vector <sf::RectangleShape> _line;
+	sf::RectangleShape _linija;
 public:
 	Contour();
 	~Contour() {};
