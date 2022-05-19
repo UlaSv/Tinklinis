@@ -17,13 +17,13 @@ int main()
 
 	Text tekstas;
 	Contour remas;
-	Player1 player1(WINDOW_WIDTH / 4, GROUND_Y);
-	Player2 player2(WINDOW_WIDTH / 4 + WINDOW_WIDTH / 2, GROUND_Y);
+	Player player1(WINDOW_WIDTH / 4, GROUND_Y, "Resources/player.png");
+	Player player2(WINDOW_WIDTH / 4 + WINDOW_WIDTH / 2, GROUND_Y, "Resources/player2.png");
 	Net net(WINDOW_WIDTH / 2 - 20, GROUND_Y - 220);
 	Ball ball(WINDOW_WIDTH / 6, GROUND_Y - 100);
 
-	GameObject* pPlayer1 = dynamic_cast<Player1*>(&player1);
-	GameObject* pPlayer2 = dynamic_cast<Player2*>(&player2);
+	GameObject* pPlayer1 = dynamic_cast<Player*>(&player1);
+	GameObject* pPlayer2 = dynamic_cast<Player*>(&player2);
 	GameObject* pNet = dynamic_cast<Net*>(&net);
 	GameObject* pBall = dynamic_cast<Ball*>(&ball);
 

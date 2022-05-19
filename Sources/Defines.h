@@ -7,10 +7,10 @@ const int WINDOW_WIDTH = 1000;
 const int WINDOW_HEIGHT = 600;	
 const float GROUND_Y = 525;	
 
-const float BALL_WIDTH = 106;
-const float BALL_HEIGHT = 98;
+const float BALL_WIDTH = 100;
+const float BALL_HEIGHT = 90;
 
-const int NET_WIDTH = 16;	
-const int NET_HEIGHT = 284;	
+const int NET_WIDTH = 30;	
+const int NET_HEIGHT = 286;	
 
 #endif

@@ -1,16 +1,16 @@
 #include "Utils.h"
 
-void nmUtils::UpdatePositions(Player1& player1, Player2& player2, Net& net, Ball& ball, int& stepX, int& stepY)
+void nmUtils::UpdatePositions(Player& player1, Player& player2, Net& net, Ball& ball, int& stepX, int& stepY)
 {
 	const int dx = 7;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		player1.XCoordinate(-dx);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		player1.XCoordinate(dx);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		player2.XCoordinate(-dx);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	if (ball.GetX() >= player2.GetX() && ball.GetX() > net.GetX())
 		player2.XCoordinate(dx);
+	else if (ball.GetX() < player2.GetX() + BALL_WIDTH && ball.GetX() > net.GetX())
+		player2.XCoordinate(-dx);
 
 	const int stop = 10;
 	if (player1.GetX() >= net.GetX() - 30)
@@ -33,37 +33,28 @@ void nmUtils::UpdatePositions(Player1& player1, Player2& player2, Net& net, Ball
 	if (nmUtils::InOnNet2(ball, net))
 		stepX = -dx;
 
-	if (ball.GetX() > WINDOW_WIDTH - BALL_WIDTH + 20)
+	if (ball.GetX() > WINDOW_WIDTH - BALL_WIDTH + 35)
 		stepX = -dx;
-	if (ball.GetY() > WINDOW_HEIGHT - BALL_HEIGHT)
+	if (ball.GetY() > WINDOW_HEIGHT - BALL_HEIGHT + 20)
 		stepY = -dx;
-	if (ball.GetX() < 80)
+	if (ball.GetX() < 60)
 		stepX = dx;
-	if (ball.GetY() < 80)
+	if (ball.GetY() < 70)
 		stepY = dx;
 }
 
-void nmUtils::Collision(Player1& player1, Player2& player2, Ball& ball, int& stepX, int& stepY)
+void nmUtils::Collision(Player& player1, Player& player2, Ball& ball, int& stepX, int& stepY)
 {
-	int xd[2], yd[2], distance[2], ballRadius, playerRadius[2];
-	const int x1 = ball.GetX();
-	const int y1 = ball.GetY();
-	ballRadius = ball.GetRadius();
-	playerRadius[0] = --player1;
-	playerRadius[1] = --player2;
-	xd[0] = player1 - x1;
-	yd[0] = player1.GetY() - y1;
-	xd[1] = player2 - x1;
-	yd[1] = player2.GetY() - y1;
-
-	for (int i = 0; i < 2; i++)
+	srand(time(NULL));
+	if (ball.GetSprite().getGlobalBounds().intersects(player1.GetSprite().getGlobalBounds()))
 	{
-		distance[i] = sqrt((xd[i] * xd[i]) + (yd[i] * yd[i]));
-		if (distance[i] < (playerRadius[i] + ballRadius))
-		{
-			stepX = rand() % 3 + 1 * 7;
-			stepY = rand() % 3 - 1 * 7;
-		}
+		stepX = rand() % 8 + 5;
+		stepY = rand() % 8 - 10;
+	}
+	if (ball.GetSprite().getGlobalBounds().intersects(player2.GetSprite().getGlobalBounds()))
+	{
+		stepX = (rand() % 8 - 10) * -1;
+		stepY = (rand() % 8 + 5) * -1;
 	}
 }
 void nmUtils::Score(Ball& ball, Net& net, int& score1, int& score2)

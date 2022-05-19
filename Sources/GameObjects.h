@@ -19,10 +19,10 @@ public:
 	int GetY() const;
 	void XCoordinate(int step);
 	void YCoordinate(int step);
-	virtual void DrawObject(sf::RenderWindow& appsas);
+	virtual void DrawObject(sf::RenderWindow& appsas) = 0;
 };
 
-class Player1 : public GameObject
+class Player : public GameObject
 {
 private:
 	sf::Texture _tPlayer1;
@@ -30,25 +30,11 @@ private:
 	int _radius;
 
 public:
-	Player1(int x, int y);
-	virtual ~Player1(){};
+	Player(int x, int y, const char* skin);
+	virtual ~Player(){};
 	int operator -- () const;
 	int operator - (int atstumas) const;
-	void DrawObject(sf::RenderWindow& appsas);
-};
-
-class Player2 : public GameObject
-{
-private:
-	sf::Texture _tPlayer2;
-	sf::Sprite _sprPlayer2;
-	int _radius;
-
-public:
-	Player2(int x, int y);
-	virtual ~Player2() {};
-	int operator --() const;
-	int operator - (int atstumas) const;
+	sf::Sprite GetSprite() const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
 
@@ -67,6 +53,7 @@ public:
 	float BallX()const;
 	float BallX2() const;
 	int GetRadius() const;
+	sf::Sprite GetSprite() const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
 
@@ -82,6 +69,7 @@ public:
 	float EndY() const;
 	float TopX() const;
 	float BottomX()const;
+	sf::Sprite GetSprite() const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
 

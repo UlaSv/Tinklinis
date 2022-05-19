@@ -14,48 +14,35 @@ void GameObject::YCoordinate(int step) { _y += step; }
 void GameObject::DrawObject(sf::RenderWindow& appsas){};
 
 
-Player1::Player1(int x, int y) : GameObject(x, y)
+Player::Player(int x, int y, const char* skin) : GameObject(x, y)
 {
-	_tPlayer1.loadFromFile("Resources/player.png");
+	_tPlayer1.loadFromFile(skin);
 	_sprPlayer1.setTexture(_tPlayer1);
 	_radius = 52;
 	_sprPlayer1.setOrigin(_radius, 25);
 }
-int Player1::operator--() const { return _radius; }
-int Player1::operator - (int atstumas) const { return _x - atstumas; }
-void Player1::DrawObject(sf::RenderWindow& appsas) 
+int Player::operator--() const { return _radius; }
+int Player::operator - (int atstumas) const { return _x - atstumas; }
+sf::Sprite Player::GetSprite() const { return _sprPlayer1; }
+void Player::DrawObject(sf::RenderWindow& appsas) 
 {
 	_sprPlayer1.setPosition(_x, _y);
 	appsas.draw(_sprPlayer1); 
 }
-
-Player2::Player2(int x, int y) : GameObject(x, y)
-{
-	_tPlayer2.loadFromFile("Resources/player2.png");
-	_sprPlayer2.setTexture(_tPlayer2);
-	_radius = 52;
-	_sprPlayer2.setOrigin(_radius, 25);
-}
-int Player2::operator--() const { return _radius; }
-int Player2::operator - (int atstumas) const { return _x - atstumas; }
-void Player2::DrawObject(sf::RenderWindow& appsas)
-{ 
-	_sprPlayer2.setPosition(_x, _y);
-	appsas.draw(_sprPlayer2); 
-}
-
 Ball::Ball(int x, int y) : GameObject(x, y) 
 {
 	_tBall.loadFromFile("Resources/ball.png");
 	_sprBall.setTexture(_tBall);
 	_radius = 52;
+	_sprBall.setScale(0.75, 0.75);
 	_sprBall.setOrigin(_radius, 25);
 }
 int Ball::GetRadius() const { return _radius; }
-float Ball::BallStartY() const { return _y - 70; }
-float Ball::BallEndY() const { return _y + 70; }
-float Ball::BallX() const { return _x - 50; }
-float Ball::BallX2() const { return _x + 50; }
+sf::Sprite Ball::GetSprite() const { return _sprBall; }
+float Ball::BallStartY() const { return _y - 20; }
+float Ball::BallEndY() const { return _y + 20; }
+float Ball::BallX() const { return _x - 20; }
+float Ball::BallX2() const { return _x + 20; }
 void Ball::DrawObject(sf::RenderWindow& appsas) 
 {  
 	_sprBall.setPosition(_x, _y);
@@ -69,9 +56,9 @@ Net::Net(int x, int y):  GameObject(x, y)
 	_sprNet.setPosition(_x,_y);
 }
 
-float Net::StartY() const { return _y; }
+float Net::StartY() const { return _y - 20; }
 float Net::EndY() const { return _y + NET_HEIGHT; }
-float Net::TopX() const { return _x; }
+float Net::TopX() const { return _x - NET_WIDTH; }
 float Net::BottomX() const { return _x + NET_WIDTH; }
 void Net::DrawObject(sf::RenderWindow& appsas) { appsas.draw(_sprNet); }
 
@@ -103,9 +90,9 @@ Text::Text()
 void Text::PrintText(sf::RenderWindow& appsas, int& taskai1, int& taskai2)
 {
 	appsas.draw(_text);
-	_score1.setString(std::format("{:}", taskai1));
+	_score1.setString(std::format("{:}", taskai1/10));
 	appsas.draw(_score1);
-	_score2.setString(std::format("{:}", taskai2));
+	_score2.setString(std::format("{:}", (taskai2+5)/10));
 	appsas.draw(_score2);
 }
 Contour::Contour()
