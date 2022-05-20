@@ -1,5 +1,5 @@
 # Bendra informacija
-2021-2022 žiemos ir pavasario semestras
+2021-2022 rudens ir pavasario semestras
 
 Objektinis + procedūrinis programavimas => Kursinis darbas: žaidimas tinklinis
 
@@ -16,17 +16,21 @@ Mano sukurtoje versijoje yra skirta vienam žaidėjui, nes oponentą valdo AI al
 <img src="https://github.com/UlaSv/Tinklinis/blob/master/Resources/Final_result.png" alt="Resultatas" width="450"/>
 
 # Darbo eiga
-## Žiemos semestras: 
-- Sugalvota pati įdėja ir parašytas kodas, __kuris veikė__, bet nebuvo pats objektiškiausias ar logiškiausias ar gražiausias. Beveik viskas buvo parašyta main.cpp faile.
-Tikslas buvo padaryti, kad bent jau veiktų ir būtų panašu į tinklinį. Šis tikslas buvo įgyvendintas :)
+## Rudens semestras: 
+Rudens semestre prasidėjo pati žaidimo pradžia. Išvystyta pati žaidimo idėja. Daugiausiai buvo remiamasi procedūrinio programavimo žiniomis.
+1. Susipažinta su žaidimo kurimo eiga ir metodais;
+2. Panaudoti SFML bibliotekos pagrindai kuriant objektus;
+3. Viskas buvo kuriama main.cpp faile, main() metode;
+4. Susipažinta su GitHub erdve ir jos sąsajomis su Microsoft Visual Studio;
+Tikslas buvo padaryti, kad programa funkcionuotų ir būtų panaši į tinklinio žaidimą. 
 
 ## Pavasario semestras:
--Žaidimas buvo patobulintas pritaikant objektinio programavimo žinias įgytas per pavasario semestrą objektinio programavimo paskaitose. 
+Žaidimas buvo patobulintas pritaikant objektinio programavimo žinias, įgytas per pavasario semestrą objektinio programavimo paskaitose. 
 Tai yra sukurta ir panaudota:
-1. klasės (tiek bazinė klasė, tiek atskiros objektų klasės), vykdomas klasių paveldėjimas, naudojami virtual elementai;
+1. klasės (tiek bazinė klasė, tiek atskiros objektų klasės), vykdomas klasių paveldėjimas, naudojami virtual elementai: metodai ir destruktoriai;
 2. operatorių perkrovimas;
 3. STL konteineris: vector;
-4. Metodų ir klasių paskirstymas į atskirus .h ir .cpp failus;
+4. metodų ir klasių paskirstymas į atskirus .h ir .cpp failus;
 5. <dynamic_cast>, pointer'iai ir referesai;
 6. pridėtas algoritmas, kuris padaro, kad vienas žaidėjas nebūtų valdomas klavietūros, o kompiuterio.
-7. srand() ir rand() panaudotas, kad kamuolys nuo žaidėjo atsimuštu į random pusę.
+7. srand() ir rand() panaudotas, kad kamuolys nuo žaidėjo atsimuštų į nenuspėjamą kryptį.
