@@ -13,7 +13,7 @@ Mano sukurtoje versijoje yra skirta vienam žaidėjui, nes oponentą valdo AI al
 *Žaidimo tikslas*: neleisti kamuoliui paliesti žemės savo ekrano pusėje, o kartu stengtis pasiųsti kamuolį priešininkui taip, kad jis negalėtų jo atmušti.
 
 # Galutinis rezultatas
-<img src="https://github.com/UlaSv/Tinklinis/blob/master/Resources/Final_result.png" alt="Resultatas" width="250"/>
+<img src="https://github.com/UlaSv/Tinklinis/blob/master/Resources/Final_result.png" alt="Resultatas" width="450"/>
 
 # Darbo eiga
 ## Žiemos semestras: 
