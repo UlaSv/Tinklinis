@@ -12,6 +12,11 @@ Mano sukurtoje versijoje yra skirta vienam žaidėjui, nes oponentą valdo AI al
 ## Žaidimo tikslas
 *Žaidimo tikslas*: neleisti kamuoliui paliesti žemės savo ekrano pusėje, o kartu stengtis pasiųsti kamuolį priešininkui taip, kad jis negalėtų jo atmušti.
 
+# Galutinis rezultatas
+![alt text][result]
+
+[result]: https://github.com/UlaSv/Tinklinis/blob/master/Resources/Final_result.png "Resultatas"
+
 # Darbo eiga
 ## Žiemos semestras: 
 - Sugalvota pati įdėja ir parašytas kodas, __kuris veikė__, bet nebuvo pats objektiškiausias ar logiškiausias ar gražiausias. Beveik viskas buvo parašyta main.cpp faile.
