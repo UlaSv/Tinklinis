@@ -47,7 +47,7 @@ int main()
 		app.draw(sprBackground);
 		
 		tekstas.PrintText(app, score1, score2);
-		remas.DrawContour(app);
+		remas += app;
 		
 		pPlayer1->DrawObject(app);
 		pPlayer2->DrawObject(app);

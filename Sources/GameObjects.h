@@ -32,8 +32,6 @@ private:
 public:
 	Player(int x, int y, const char* skin);
 	virtual ~Player(){};
-	int operator -- () const;
-	int operator - (int atstumas) const;
 	sf::Sprite GetSprite() const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
@@ -52,7 +50,6 @@ public:
 	float BallEndY() const;
 	float BallX()const;
 	float BallX2() const;
-	int GetRadius() const;
 	sf::Sprite GetSprite() const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
@@ -67,8 +64,8 @@ public:
 	virtual ~Net(){};
 	float StartY() const;
 	float EndY() const;
-	float TopX() const;
-	float BottomX()const;
+	float StartX() const;
+	float EndX()const;
 	sf::Sprite GetSprite() const;
 	void DrawObject(sf::RenderWindow& appsas);
 };
@@ -92,6 +89,6 @@ private:
 public:
 	Contour();
 	~Contour() {};
-	void DrawContour(sf::RenderWindow& appsas);
+	void operator += (sf::RenderWindow& appsas);
 };
 #endif

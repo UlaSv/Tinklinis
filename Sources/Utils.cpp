@@ -2,7 +2,7 @@
 
 void nmUtils::UpdatePositions(Player& player1, Player& player2, Net& net, Ball& ball, int& stepX, int& stepY)
 {
-	const int dx = 7;
+	const int dx = 10;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		player1.XCoordinate(-dx);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -33,7 +33,7 @@ void nmUtils::UpdatePositions(Player& player1, Player& player2, Net& net, Ball& 
 	if (nmUtils::InOnNet2(ball, net))
 		stepX = -dx;
 
-	if (ball.GetX() > WINDOW_WIDTH - BALL_WIDTH + 35)
+	if (ball.GetX() > WINDOW_WIDTH - BALL_WIDTH + 15)
 		stepX = -dx;
 	if (ball.GetY() > WINDOW_HEIGHT - BALL_HEIGHT + 20)
 		stepY = -dx;
@@ -48,13 +48,13 @@ void nmUtils::Collision(Player& player1, Player& player2, Ball& ball, int& stepX
 	srand(time(NULL));
 	if (ball.GetSprite().getGlobalBounds().intersects(player1.GetSprite().getGlobalBounds()))
 	{
-		stepX = rand() % 8 + 5;
-		stepY = rand() % 8 - 10;
+		stepX = (rand() % 8) * 2;
+		stepY = (rand() % 8 + 5) * -2;
 	}
 	if (ball.GetSprite().getGlobalBounds().intersects(player2.GetSprite().getGlobalBounds()))
 	{
-		stepX = (rand() % 8 - 10) * -1;
-		stepY = (rand() % 8 + 5) * -1;
+		stepX = (rand() % 8 - 5) * 2;
+		stepY = (rand() % 8 + 5) * -2;
 	}
 }
 void nmUtils::Score(Ball& ball, Net& net, int& score1, int& score2)
@@ -75,7 +75,7 @@ bool nmUtils::InOnNet(Ball& ball, Net& net)
 	const bool betweenY = IsBetween(ball.BallStartY(), net.StartY(), ball.BallEndY()) ||
 		IsBetween(ball.BallEndY(), net.StartY(), net.EndY());
 
-	const bool betweenX = IsBetween(ball.BallX(), net.TopX(), net.BottomX());
+	const bool betweenX = IsBetween(ball.BallX(), net.StartX(), net.EndX());
 
 	return betweenX && betweenY;
 }
@@ -84,7 +84,7 @@ bool nmUtils::InOnNet2(Ball& ball, Net& net)
 	const bool betweenY = IsBetween(ball.BallStartY(), net.StartY(), ball.BallEndY()) ||
 		IsBetween(ball.BallEndY(), net.StartY(), net.EndY());
 
-	const bool betweenX = IsBetween(ball.BallX2(), net.TopX(), net.BottomX());
+	const bool betweenX = IsBetween(ball.BallX2(), net.StartX(), net.EndX());
 
 	return betweenX && betweenY;
 }

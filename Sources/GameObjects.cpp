@@ -11,8 +11,6 @@ int GameObject::GetX() const { return _x; }
 int GameObject::GetY() const { return _y; }
 void GameObject::XCoordinate(int step) { _x += step; }
 void GameObject::YCoordinate(int step) { _y += step; }
-void GameObject::DrawObject(sf::RenderWindow& appsas){};
-
 
 Player::Player(int x, int y, const char* skin) : GameObject(x, y)
 {
@@ -21,8 +19,6 @@ Player::Player(int x, int y, const char* skin) : GameObject(x, y)
 	_radius = 52;
 	_sprPlayer1.setOrigin(_radius, 25);
 }
-int Player::operator--() const { return _radius; }
-int Player::operator - (int atstumas) const { return _x - atstumas; }
 sf::Sprite Player::GetSprite() const { return _sprPlayer1; }
 void Player::DrawObject(sf::RenderWindow& appsas) 
 {
@@ -37,7 +33,6 @@ Ball::Ball(int x, int y) : GameObject(x, y)
 	_sprBall.setScale(0.75, 0.75);
 	_sprBall.setOrigin(_radius, 25);
 }
-int Ball::GetRadius() const { return _radius; }
 sf::Sprite Ball::GetSprite() const { return _sprBall; }
 float Ball::BallStartY() const { return _y - 20; }
 float Ball::BallEndY() const { return _y + 20; }
@@ -58,8 +53,8 @@ Net::Net(int x, int y):  GameObject(x, y)
 
 float Net::StartY() const { return _y - 20; }
 float Net::EndY() const { return _y + NET_HEIGHT; }
-float Net::TopX() const { return _x - NET_WIDTH; }
-float Net::BottomX() const { return _x + NET_WIDTH; }
+float Net::StartX() const { return _x - NET_WIDTH; }
+float Net::EndX() const { return _x + NET_WIDTH; }
 void Net::DrawObject(sf::RenderWindow& appsas) { appsas.draw(_sprNet); }
 
 Text::Text()
@@ -115,7 +110,7 @@ Contour::Contour()
 	_linija.setRotation(90.f);
 	_line.push_back(_linija);
 }
-void Contour::DrawContour(sf::RenderWindow& appsas)
+void Contour::operator += (sf::RenderWindow& appsas)
 {
 	for (auto &vec: _line)
 		appsas.draw(vec);
