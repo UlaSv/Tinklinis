@@ -1,6 +1,7 @@
 # Bendra informacija
-⋅⋅⋅2021-2022 žiemos ir pavasario semestras⋅⋅
-⋅⋅⋅Objektinis + procedūrinis programavimas => Kursinis darbas: žaidimas tinklinis⋅⋅
+2021-2022 žiemos ir pavasario semestras
+
+Objektinis + procedūrinis programavimas => Kursinis darbas: žaidimas tinklinis
 
 # Apie žaidimą
 Žaidimas kurį matote nėra orginalaus dizaino ar idėjos (Pats suprogramuotas kodas aišku yra mano darbas). 
