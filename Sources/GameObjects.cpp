@@ -59,8 +59,9 @@ void Net::DrawObject(sf::RenderWindow& appsas) { appsas.draw(_sprNet); }
 
 Text::Text()
 {
-	_font.loadFromFile("Resources/arcadeStyle.ttf");
-	_text.setFont(_font);
+	_font = new sf::Font;
+	_font->loadFromFile("Resources/arcadeStyle.ttf");
+	_text.setFont(*_font);
 	_text.setString("Arcade volleyball 2022");
 	_text.setCharacterSize(40);
 	_text.setFillColor(sf::Color::White);
@@ -68,19 +69,23 @@ Text::Text()
 	_text.setOutlineColor(sf::Color::Black);
 	_text.setPosition(WINDOW_WIDTH / 3.5f, 5.f);
 
-	_score1.setFont(_font);
+	_score1.setFont(*_font);
 	_score1.setCharacterSize(40);
 	_score1.setFillColor(sf::Color::Cyan);
 	_score1.setOutlineThickness(1);
 	_score1.setOutlineColor(sf::Color::Black);
 	_score1.setPosition(WINDOW_WIDTH / 5, 5.f);
 
-	_score2.setFont(_font);
+	_score2.setFont(*_font);
 	_score2.setCharacterSize(40);
 	_score2.setFillColor(sf::Color::Magenta);
 	_score2.setOutlineThickness(1);
 	_score2.setOutlineColor(sf::Color::Black);
 	_score2.setPosition(WINDOW_WIDTH - 200, 5.f);
+}
+Text::~Text()
+{
+	delete _font;
 }
 void Text::PrintText(sf::RenderWindow& appsas, int& taskai1, int& taskai2)
 {

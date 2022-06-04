@@ -73,11 +73,11 @@ public:
 class Text
 {
 private:
-	sf::Font _font;
+	sf::Font *_font;
 	sf::Text _text, _score1, _score2;
 public:
 	Text();
-	~Text() {};
+	~Text();
 	void PrintText(sf::RenderWindow& appsas, int& taskai1, int& taskai2);
 };
 
